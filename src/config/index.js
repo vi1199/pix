@@ -1,14 +1,18 @@
 import { createStackNavigator } from 'react-navigation';
 import Feeds from '../screens/Feeds';
-import UserProfile from '../screens/UserProfile';
+import EditProfile from '../screens/EditProfile';
+import Profile from '../screens/Profile';
 
  export const Routes = createStackNavigator (
     {
         Feeds : {
             screen: Feeds
         },
-        Profile : {
-            screen: UserProfile
+        Profile: {
+            screen: Profile
+        },
+        EditProfile : {
+            screen: EditProfile
         }
     },
     {
