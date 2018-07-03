@@ -19,7 +19,7 @@ export const FeedListSchema = {
     name: FEEDLIST_SCHEMA,
     primaryKey: 'id',
     properties: {
-        creationDate : {date},
+        creationDate : 'date',
         feeds: { type: 'list', objectType: USER_SCHEMA }
     }
 }

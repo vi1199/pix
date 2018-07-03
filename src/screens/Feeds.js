@@ -5,7 +5,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  YellowBox
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 export default class Feeds extends Component {
@@ -41,7 +40,6 @@ handleSettingsAccountPress = () =>{
   this.props.navigation.navigate('Profile');
 }
   render() {
-    YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
