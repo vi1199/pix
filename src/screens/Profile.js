@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 var ImagePicker = require('react-native-image-picker');
+import { createUser, queryUser} from '../db/schema';
 
 export default class Profile extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -39,12 +40,23 @@ export default class Profile extends Component {
     constructor() {
         super();
         this.state = {
-            avatarSource: '',
             image: '',
+            name: '',
+            email: '',
+            aboutme: ''
         }
     }
     componentDidMount() {
         this.props.navigation.setParams({headerIconPress: this.handleIconPress})
+        queryUser()
+        .then((user) => {
+            console.log('data is111111111', user[2].name)
+            this.setState({name: user[2].name, image: user[2].pic, email: user[2].email})
+        })
+        .catch((error) => {
+            console.log('error in fetch @@@@@@@', error)
+        })
+        
     }
     handleIconPress = () =>{
         console.log('icon pressed');
@@ -52,6 +64,13 @@ export default class Profile extends Component {
     }
 
     render() {
+        const { navigation } = this.props;
+        const emailNew= navigation.getParam('email', this.state.email)
+        const usernameNew = navigation.getParam('username', this.state.name)
+        const avatarNew = navigation.getParam('avatarSource', this.state.image)
+        const descNew = navigation.getParam('description', this.state.aboutme)
+      //  console.log('values are, __------', email, username, avatar, desc)
+        
         return (
             <ScrollView style={{ flexGrow: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
                 <View style= {styles.container}>
@@ -60,12 +79,13 @@ export default class Profile extends Component {
                             <Image
                                 style= {styles.imageComponent}
                                 source= {{
-                                    uri: this.state.image ? this.state.image : null
+                                    uri: avatarNew
                             }}/>
                         </View>
                         <View style= {styles.textStyles}>
-                            <Text style= {styles.textContainer}>vineet</Text>
-                            <Text style= {styles.textContainer}>vineet.vineet@vineet.com</Text>
+                            <Text style= {styles.textContainer}>{usernameNew}</Text>
+                            <Text style= {styles.textContainer}>{emailNew}</Text>
+                            <Text style= {styles.textContainer}>{descNew}</Text>
                         </View>
                     </View>
                 </View>

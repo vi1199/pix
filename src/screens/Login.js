@@ -29,6 +29,7 @@ export default class Login extends Component {
     }
     componentDidMount() {
         this.props.navigation.setParams({headerIconPress: this.handleIconPress})
+        console.log('REALM PATH``````````', Realm.defaultPath);
       }
     static navigationOptions = ({ navigation }) => {
         const params= navigation.state.params || {};
@@ -78,15 +79,15 @@ export default class Login extends Component {
                                 } else {
                                   console.log(result)
                                   this.setState({name: result.name, picture: result.picture, email: result.email})
-                                  alert('Success fetching data: ' + result.toString());
+                                //  alert('Success fetching data: ' + result.toString());
                                   const newUser = {
                                       id: Math.floor(Date.now() / 1000),
                                       name: result.name,
                                       email: result.email,
-                                      picture: result.picture
+                                      pic: result.picture.data.url
                                   }
                                   createUser(newUser)
-                                  .then()
+                                  .then(this.handleIconPress)
                                   .catch((error) => {
                                       console.log('error is db save item', error)
                                   })

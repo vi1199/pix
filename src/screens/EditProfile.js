@@ -31,6 +31,8 @@ export default class EditProfile extends Component {
         this.state = {
             avatarSource: '',
             username: '',
+            email: '',
+            description: ''
         }
     }
 
@@ -56,6 +58,15 @@ export default class EditProfile extends Component {
                 });
             }
         });
+    }
+
+    handleSaveInput = () => {
+        this.props.navigation.navigate('Profile', {
+            avatarSource: this.state.avatarSource,
+            email: this.state.email,
+            username: this.state.username,
+            description: this.state.description  
+        })
     }
 
     render() {

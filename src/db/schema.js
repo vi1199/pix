@@ -9,9 +9,7 @@ export const UserSchema = {
         id: { type: 'int', default: 0 },
         name: 'string',
         email: 'string',
-        description: 'string',
-        picture: 'data?',
-        birthday: 'date'
+        pic: 'string',
     }
 };
 
@@ -19,6 +17,7 @@ export const FeedListSchema = {
     name: FEEDLIST_SCHEMA,
     primaryKey: 'id',
     properties: {
+        id: { type: 'int', default: 0},
         creationDate : 'date',
         feeds: { type: 'list', objectType: USER_SCHEMA }
     }
@@ -26,12 +25,12 @@ export const FeedListSchema = {
 
 const databaseOptions = {
     path: 'PixDb.realm',
-    schema: [FEEDLIST_SCHEMA, USER_SCHEMA],
-    schemaVersion: 0, //optional    
+    schema: [FeedListSchema, UserSchema],
+    schemaVersion: 2, //optional    
 };
 
 //User
-export const createUser = newUser => new Promise((resolve, reject) => {
+export const createUser = (newUser) => new Promise((resolve, reject) => {
     Realm.open(databaseOptions)
     .then(realm => {
         realm.write(() => {
@@ -43,7 +42,7 @@ export const createUser = newUser => new Promise((resolve, reject) => {
 });
 
 //FeedList 
-export const insertFeed = newList => new Promise((resolve, reject) => {
+export const insertFeed = (newList) => new Promise((resolve, reject) => {
     Realm.open(databaseOptions)
     .then(realm => {
         realm.write(() => {
@@ -54,4 +53,15 @@ export const insertFeed = newList => new Promise((resolve, reject) => {
     .catch((error) => reject(error))
 });
 
+export const queryUser = () => new Promise((resolve, reject) => {    
+    Realm.open(databaseOptions).then(realm => {        
+        let allUsers = realm.objects(USER_SCHEMA);
+        resolve(allUsers);  
+    }).catch((error) => {        
+        reject(error);  
+    });;
+});
+
+
+console.log('REALM PATH``````````', Realm.defaultPath);
 export default new Realm(databaseOptions);
