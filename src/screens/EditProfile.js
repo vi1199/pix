@@ -52,9 +52,9 @@ export default class EditProfile extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                let source = { uri: response.uri };
+                let source = { uri: response.data };
                 this.setState({
-                    avatarSource: source
+                    avatarSource: response.data
                 });
             }
         });
@@ -100,7 +100,9 @@ export default class EditProfile extends Component {
                     <Text style= {styles.textContainer}>Upload Photo</Text>
                     <View>
                         <Image 
-                            source={this.state.avatarSource}
+                            source= { 
+                                this.state.avatarSource ? { uri: `data:image/gif;base64,${this.state.avatarSource}`}: null
+                            }
                             style={styles.imageContainer} />
                             {
                                 this.state.avatarSource === '' ? 

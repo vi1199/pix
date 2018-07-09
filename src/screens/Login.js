@@ -29,7 +29,7 @@ export default class Login extends Component {
     }
     componentDidMount() {
         this.props.navigation.setParams({headerIconPress: this.handleIconPress})
-        console.log('REALM PATH``````````', Realm.defaultPath);
+        console.log('REALM PATH``````````', Realm.path);
       }
     static navigationOptions = ({ navigation }) => {
         const params= navigation.state.params || {};
@@ -45,7 +45,7 @@ export default class Login extends Component {
             headerRight: (
                 <TouchableOpacity onPress= {params.headerIconPress}>
                     <Icon
-                        name= 'account-circle'
+                        name= 'jira'
                         size= {22}
                         color= '#FFFFFF'
                         style= {{padding: 10}}
@@ -56,7 +56,7 @@ export default class Login extends Component {
     }
     handleIconPress = () =>{
         console.log('icon pressed');
-        this.props.navigation.navigate('Profile');
+        this.props.navigation.navigate('Feeds');
     }
     render() {
         YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
